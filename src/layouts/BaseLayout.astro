@@ -4,27 +4,30 @@ import '../styles/blog.css';
 import { site, image } from '../data/site';
 const { title = site.name, description = site.title } = Astro.props;
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const base = import.meta.env.BASE_URL;
 const nav = [['/', 'Home'], ['/about/', 'About'], ['/profile/', 'Profile'], ['/gallery/', 'Gallery'], ['/blog/', 'Blog'], ['/contact/', 'Contact']];
+const href = (path: string) => `${base}${path === '/' ? '' : path.replace(/^\//, '')}`;
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content={description} /><meta name="author" content={site.name} /><meta name="theme-color" content="#f7f7f5" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} /><meta name="author" content={site.name} />
   <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
   <link rel="icon" href={image('icon.png')} /><title>{title}</title>
   <script is:inline>try{const s=localStorage.getItem('theme');document.documentElement.dataset.theme=s==='dark'||s==='light'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{}</script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="Güven Çalışkan home">GÜVEN <span>ÇALIŞKAN</span></a>
-    <nav aria-label="Primary navigation">{nav.map(([href,label])=><a href={href} class:list={{active:current===href.replace(/\/$/,'')||(href!=='/'&&current.startsWith(href.replace(/\/$/,'')))}}>{label}</a>)}</nav>
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><span aria-hidden="true">◐</span></button>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
+    <a class="brand" href={href('/')} aria-label="Güven Çalışkan home"><b>GÜVEN</b><span>ÇALIŞKAN</span></a>
+    <nav aria-label="Primary navigation">{nav.map(([path,label])=><a href={href(path)} class:list={{active:current===path.replace(/\/$/,'')||(path!=='/'&&current.startsWith(path.replace(/\/$/,'')))}}>{label}</a>)}</nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>◐</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle><i></i><i></i></button>
   </header>
-  <div class="mobile-nav" data-mobile-nav>{nav.map(([href,label])=><a href={href}>{label}</a>)}<button class="mobile-theme" type="button" data-theme-toggle>Toggle appearance <span aria-hidden="true">◐</span></button></div>
+  <div class="mobile-nav" data-mobile-nav>{nav.map(([path,label])=><a href={href(path)}>{label}</a>)}<button class="mobile-theme" type="button" data-theme-toggle>Appearance&nbsp; ◐</button></div>
   <main><slot /></main>
-  <footer class="site-footer"><span>GÜVEN © 2026. Made with ♥ & ☕.</span><div class="footer-links"><a href={site.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={`mailto:${site.email}`}>{site.email}</a></div></footer>
+  <footer class="site-footer"><span>GÜVEN © 2026</span><div class="footer-links"><a href={site.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a><a href={`mailto:${site.email}`}>{site.email}</a></div></footer>
   <script is:inline>
     const root=document.documentElement,toggles=document.querySelectorAll('[data-theme-toggle]'),menuToggle=document.querySelector('[data-menu-toggle]'),mobileNav=document.querySelector('[data-mobile-nav]');
     const applyTheme=t=>{root.dataset.theme=t;try{localStorage.setItem('theme',t)}catch{}};
