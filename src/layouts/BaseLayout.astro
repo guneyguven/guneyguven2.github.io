@@ -3,71 +3,33 @@ import '../styles/global.css';
 import { site } from '../data/site';
 const { title = site.name, description = site.title } = Astro.props;
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
-const nav = [
-  ['/', 'Home'],
-  ['/about/', 'About'],
-  ['/profile/', 'Profile'],
-  ['/gallery/', 'Gallery'],
-  ['/blog/', 'Blog'],
-  ['/contact/', 'Contact']
-];
+const nav = [['/', 'Home'], ['/about/', 'About'], ['/profile/', 'Profile'], ['/gallery/', 'Gallery'], ['/blog/', 'Blog'], ['/contact/', 'Contact']];
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content={description} />
-  <meta name="author" content={site.name} />
-  <meta name="theme-color" content="#f7f7f5" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="https://raw.githubusercontent.com/guneyguven/guneyguven.github.io/main/images/icon.png" />
-  <title>{title}</title>
-  <script is:inline>
-    (() => {
-      try {
-        const saved = localStorage.getItem('theme');
-        const theme = saved === 'dark' || saved === 'light' ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.documentElement.dataset.theme = theme;
-      } catch {}
-    })();
-  </script>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} /><meta name="author" content={site.name} /><meta name="theme-color" content="#f7f7f5" />
+  <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
+  <link rel="icon" href="https://raw.githubusercontent.com/guneyguven/guneyguven.github.io/main/images/icon.png" /><title>{title}</title>
+  <script is:inline>try{const s=localStorage.getItem('theme');document.documentElement.dataset.theme=s==='dark'||s==='light'?s:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch{}</script>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="/" aria-label="Güven Çalışkan home">GÜVEN <span>ÇALIŞKAN</span></a>
-    <nav aria-label="Primary navigation">
-      {nav.map(([href, label]) => <a href={href} class:list={{ active: current === href.replace(/\/$/, '') || (href !== '/' && current.startsWith(href.replace(/\/$/, ''))) }}>{label}</a>)}
-    </nav>
-    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>
-      <span class="theme-sun" aria-hidden="true">☼</span><span class="theme-moon" aria-hidden="true">◐</span>
-    </button>
+    <nav aria-label="Primary navigation">{nav.map(([href,label])=><a href={href} class:list={{active:current===href.replace(/\/$/,'')||(href!=='/'&&current.startsWith(href.replace(/\/$/,'')))}}>{label}</a>)}</nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><span aria-hidden="true">◐</span></button>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
   </header>
-  <div class="mobile-nav" data-mobile-nav>
-    {nav.map(([href, label]) => <a href={href}>{label}</a>)}
-  </div>
-  <main>{Astro.slots.default ? await Astro.slots.default() : ''}</main>
-  <footer class="site-footer">
-    <span>GÜVEN © 2026</span>
-    <div class="footer-links">
-      <a href={site.socials.github} target="_blank" rel="noreferrer">GitHub</a>
-      <a href={site.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-      <a href={site.socials.instagram} target="_blank" rel="noreferrer">Instagram</a>
-      <a href={`mailto:${site.email}`}>{site.email}</a>
-    </div>
-  </footer>
+  <div class="mobile-nav" data-mobile-nav>{nav.map(([href,label])=><a href={href}>{label}</a>)}</div>
+  <main><slot /></main>
+  <footer class="site-footer"><span>GÜVEN © 2026</span><div class="footer-links"><a href={site.socials.github} target="_blank" rel="noreferrer">GitHub</a><a href={site.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={site.socials.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={`mailto:${site.email}`}>{site.email}</a></div></footer>
   <script is:inline>
-    const root = document.documentElement;
-    const toggle = document.querySelector('[data-theme-toggle]');
-    const menuToggle = document.querySelector('[data-menu-toggle]');
-    const mobileNav = document.querySelector('[data-mobile-nav]');
-    const applyTheme = (theme) => { root.dataset.theme = theme; try { localStorage.setItem('theme', theme); } catch {} };
-    toggle?.addEventListener('click', () => applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
-    menuToggle?.addEventListener('click', () => { const open = !mobileNav?.classList.contains('open'); mobileNav?.classList.toggle('open', open); menuToggle?.setAttribute('aria-expanded', String(open)); });
-    mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileNav.classList.remove('open'); menuToggle?.setAttribute('aria-expanded', 'false'); }));
+    const root=document.documentElement,toggle=document.querySelector('[data-theme-toggle]'),menuToggle=document.querySelector('[data-menu-toggle]'),mobileNav=document.querySelector('[data-mobile-nav]');
+    const applyTheme=t=>{root.dataset.theme=t;try{localStorage.setItem('theme',t)}catch{}};
+    toggle?.addEventListener('click',()=>applyTheme(root.dataset.theme==='dark'?'light':'dark'));
+    menuToggle?.addEventListener('click',()=>{const open=!mobileNav?.classList.contains('open');mobileNav?.classList.toggle('open',open);menuToggle?.setAttribute('aria-expanded',String(open))});
+    mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');menuToggle?.setAttribute('aria-expanded','false')}));
   </script>
 </body>
 </html>
