@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { image } from '../data/site';
+---
+<BaseLayout title="About — Güven ÇALIŞKAN" description="About Güven ÇALIŞKAN — engineer and multidisciplinary digital artist.">
+  <section class="page">
+    <div class="about-layout">
+      <div>
+        <p class="kicker">About me</p><h1>Who is<br>Güven?</h1>
+        <div class="prose">
+          <p>I’m an engineer and visual artist who moves comfortably between analytical problems, software, project management and visual storytelling.</p>
+          <p>I design with precision and create with instinct. My work is deliberately multidisciplinary: engineering gives me structure, software gives me leverage, project management gives me direction, and art gives me another way to think.</p>
+          <p>Outside work, I draw, explore digital art, play drums and take food far more seriously than is strictly necessary.</p>
+        </div>
+      </div>
+      <img class="about-image" src={image('me2.png')} alt="Portrait of Güven ÇALIŞKAN" loading="lazy">
+    </div>
+    <div class="cards">
+      <article class="card"><div class="card-symbol">◈</div><h2>Curiosity</h2><p>Always learning, testing and connecting ideas across disciplines.</p></article>
+      <article class="card"><div class="card-symbol">⚙</div><h2>Precision</h2><p>Engineering thinking applied to systems, projects and creative work.</p></article>
+      <article class="card"><div class="card-symbol">✦</div><h2>Creation</h2><p>Digital art, concept design and visual experimentation as a serious practice.</p></article>
+    </div>
+  </section>
+</BaseLayout>
