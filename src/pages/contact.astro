@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, image } from '../data/site';
+---
+<BaseLayout title="Contact — Güven ÇALIŞKAN" description="Contact Güven ÇALIŞKAN for questions, collaborations and professional opportunities.">
+  <section class="page">
+    <div class="contact-layout">
+      <div><p class="kicker">Let's talk</p><h1>Get in<br>touch.</h1><p class="lead">For a question, collaboration, project or job opportunity, email is the most direct way to reach me.</p><p><a class="email" href={`mailto:${site.email}`}>{site.email}</a></p></div>
+      <img class="contact-image" src={image('mail.png')} alt="Email illustration" loading="lazy">
+    </div>
+  </section>
+</BaseLayout>
