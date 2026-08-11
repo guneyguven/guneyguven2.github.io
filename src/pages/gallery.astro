@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { gallery, image } from '../data/site';
+---
+<BaseLayout title="Gallery — Güven ÇALIŞKAN" description="Selected digital artwork by Güven ÇALIŞKAN.">
+  <section class="page">
+    <div class="page-head"><p class="kicker">Selected work</p><h1>Gallery</h1><p class="lead">A selection of digital artwork and visual experiments.</p></div>
+    <div class="gallery-grid">
+      {gallery.map(([file, title]) => <figure class="gallery-item"><a href={image(file)} target="_blank" rel="noreferrer"><img src={image(file)} alt={title} loading="lazy" decoding="async"></a><figcaption>{title}</figcaption></figure>)}
+    </div>
+  </section>
+</BaseLayout>
