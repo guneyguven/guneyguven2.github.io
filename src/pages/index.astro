@@ -4,13 +4,19 @@ import { site, image } from '../data/site';
 ---
 <BaseLayout title={`${site.name} — ${site.title}`} description="Güven ÇALIŞKAN — engineer, software engineer, project manager and multidisciplinary digital artist.">
   <section class="hero">
-    <div>
-      <p class="kicker">Engineer & Multidisciplinary Digital Artist</p>
-      <h1>Güven<br><span>ÇALIŞKAN</span></h1>
-      <p class="hero-role">Engineering · Software · Projects · Art</p>
-      <p class="hero-copy">I work across engineering, software, project management and visual art — combining analytical thinking with a strong creative practice.</p>
-      <div class="hero-actions"><a class="button" href="/gallery/">Explore the work</a><a class="quiet-link" href="/contact/">Get in touch →</a></div>
+    <div class="hero-panel">
+      <img class="hero-art" src={image('banner.png')} alt="Güven Çalışkan — multidisciplinary digital artist" fetchpriority="high">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="kicker">Engineer & Multidisciplinary Digital Artist</p>
+        <h1>Güven<br><span>ÇALIŞKAN</span></h1>
+        <p class="hero-role">Engineer<br>& Multidisciplinary Digital Artist</p>
+        <div class="hero-actions"><a class="button" href="/gallery/">Explore the work</a><a class="quiet-link" href="/profile/">View profile →</a></div>
+      </div>
     </div>
-    <div><img class="hero-art" src={image('banner.png')} alt="Güven Çalışkan — engineer and multidisciplinary digital artist" fetchpriority="high"></div>
+  </section>
+  <section class="home-intro">
+    <div><p class="kicker">A multidisciplinary practice</p><h2>Engineering thinking.<br>Creative execution.</h2></div>
+    <p>I work across engineering, software, project management, continuous improvement and visual art — using different disciplines as tools for solving different kinds of problems.</p>
   </section>
 </BaseLayout>
