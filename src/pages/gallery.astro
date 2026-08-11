@@ -4,9 +4,39 @@ import { gallery, image } from '../data/site';
 ---
 <BaseLayout title="Gallery — Güven ÇALIŞKAN" description="Selected digital artwork by Güven ÇALIŞKAN.">
   <section class="page">
-    <div class="page-head"><p class="kicker">Selected work</p><h1>Gallery</h1><p class="lead">A selection of digital artwork and visual experiments.</p></div>
+    <div class="page-head">
+      <p class="kicker">Selected work</p>
+      <h1>Gallery</h1>
+      <p class="lead">A selection of digital artwork, character work and visual experiments.</p>
+    </div>
     <div class="gallery-grid">
-      {gallery.map(([file, title]) => <figure class="gallery-item"><a href={image(file)} target="_blank" rel="noreferrer"><img src={image(file)} alt={title} loading="lazy" decoding="async"></a><figcaption>{title}</figcaption></figure>)}
+      {gallery.map(([file, title], index) => (
+        <figure class="gallery-item">
+          <button class="gallery-open" type="button" data-gallery-open data-full={image(file)} aria-label={`Open ${title}`}>
+            <img src={image(file)} alt={title} loading={index < 3 ? 'eager' : 'lazy'} decoding="async">
+          </button>
+          <figcaption>{title}</figcaption>
+        </figure>
+      ))}
     </div>
   </section>
+  <dialog class="lightbox" data-lightbox aria-label="Image viewer">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close image viewer">×</button>
+    <img data-lightbox-image alt="">
+    <p data-lightbox-caption></p>
+  </dialog>
+  <script is:inline>
+    const box=document.querySelector('[data-lightbox]');
+    const boxImage=document.querySelector('[data-lightbox-image]');
+    const boxCaption=document.querySelector('[data-lightbox-caption]');
+    document.querySelectorAll('[data-gallery-open]').forEach(button=>button.addEventListener('click',()=>{
+      boxImage.src=button.dataset.full;
+      boxImage.alt=button.getAttribute('aria-label')?.replace(/^Open /,'')||'';
+      boxCaption.textContent=boxImage.alt;
+      box.showModal();
+    }));
+    document.querySelector('[data-lightbox-close]')?.addEventListener('click',()=>box.close());
+    box?.addEventListener('click',e=>{if(e.target===box)box.close()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box?.open)box.close()});
+  </script>
 </BaseLayout>
