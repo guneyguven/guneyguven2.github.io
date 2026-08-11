@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, image } from '../data/site';
+---
+<BaseLayout title={`${site.name} — ${site.title}`} description="Güven ÇALIŞKAN — engineer, software engineer, project manager and multidisciplinary digital artist.">
+  <section class="hero">
+    <div>
+      <p class="kicker">Engineer & Multidisciplinary Digital Artist</p>
+      <h1>Güven<br><span>ÇALIŞKAN</span></h1>
+      <p class="hero-role">Engineering · Software · Projects · Art</p>
+      <p class="hero-copy">I work across engineering, software, project management and visual art — combining analytical thinking with a strong creative practice.</p>
+      <div class="hero-actions"><a class="button" href="/gallery/">Explore the work</a><a class="quiet-link" href="/contact/">Get in touch →</a></div>
+    </div>
+    <div><img class="hero-art" src={image('banner.png')} alt="Güven Çalışkan — engineer and multidisciplinary digital artist" fetchpriority="high"></div>
+  </section>
+</BaseLayout>
