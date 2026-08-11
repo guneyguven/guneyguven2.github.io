@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts, getPost, bodyToBlocks } from '../../data/blog';
+
+export function getStaticPaths() {
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const post = getPost(Astro.params.slug!);
+if (!post) return Astro.redirect('/blog/');
+const blocks = bodyToBlocks(post.body);
+---
+<BaseLayout title={`${post.title} — Güven ÇALIŞKAN`} description={post.excerpt}>
+  <article class="page article-page">
+    <header class="article-head">
+      <a class="article-back" href="/blog/">← All articles</a>
+      <div class="blog-card-meta"><span>{post.category}</span><time datetime={post.date}>{new Date(`${post.date}T12:00:00`).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</time></div>
+      <h1>{post.title}</h1>
+      <p class="lead">{post.excerpt}</p>
+    </header>
+    <div class="article-body">
+      {blocks.map(block => {
+        if (block.type === 'h2' || block.type === 'h3') return <h2>{block.text}</h2>;
+        if (block.type === 'list') return <ul>{block.items.map(item => <li>{item}</li>)}</ul>;
+        return <p>{block.text}</p>;
+      })}
+    </div>
+  </article>
+</BaseLayout>
