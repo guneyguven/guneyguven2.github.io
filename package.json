@@ -10,6 +10,7 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/check": "latest",
     "@astrojs/react": "latest",
     "@astrojs/mdx": "latest",
     "astro": "latest",
