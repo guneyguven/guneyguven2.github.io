@@ -5,23 +5,25 @@ import { gallery, image } from '../data/site';
 <BaseLayout title="Gallery — Güven ÇALIŞKAN" description="Selected digital artwork by Güven ÇALIŞKAN.">
   <section class="page">
     <div class="page-head">
-      <p class="kicker">Selected work</p>
+      <p class="kicker">Selected work / 2026</p>
       <h1>Gallery</h1>
-      <p class="lead">A selection of digital artwork, character work and visual experiments.</p>
+      <p class="lead">Digital artwork, character work and visual experiments. Open any piece for the full view.</p>
     </div>
     <div class="gallery-grid">
       {gallery.map(([file, title], index) => (
         <figure class="gallery-item">
-          <button class="gallery-open" type="button" data-gallery-open data-full={image(file)} aria-label={`Open ${title}`}>
+          <button class="gallery-open" type="button" data-gallery-open data-index={index} data-full={image(file)} aria-label={`Open ${title}`}>
             <img src={image(file)} alt={title} loading={index < 3 ? 'eager' : 'lazy'} decoding="async">
           </button>
-          <figcaption>{title}</figcaption>
+          <figcaption><span>{title}</span><span>{String(index + 1).padStart(2, '0')} / {String(gallery.length).padStart(2, '0')}</span></figcaption>
         </figure>
       ))}
     </div>
   </section>
   <dialog class="lightbox" data-lightbox aria-label="Image viewer">
     <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close image viewer">×</button>
+    <button class="lightbox-prev" type="button" data-lightbox-prev aria-label="Previous image">←</button>
+    <button class="lightbox-next" type="button" data-lightbox-next aria-label="Next image">→</button>
     <img data-lightbox-image alt="">
     <p data-lightbox-caption></p>
   </dialog>
@@ -29,14 +31,13 @@ import { gallery, image } from '../data/site';
     const box=document.querySelector('[data-lightbox]');
     const boxImage=document.querySelector('[data-lightbox-image]');
     const boxCaption=document.querySelector('[data-lightbox-caption]');
-    document.querySelectorAll('[data-gallery-open]').forEach(button=>button.addEventListener('click',()=>{
-      boxImage.src=button.dataset.full;
-      boxImage.alt=button.getAttribute('aria-label')?.replace(/^Open /,'')||'';
-      boxCaption.textContent=boxImage.alt;
-      box.showModal();
-    }));
+    const items=[...document.querySelectorAll('[data-gallery-open]')]; let current=0;
+    const show=(index)=>{current=(index+items.length)%items.length;const b=items[current];boxImage.src=b.dataset.full;boxImage.alt=b.getAttribute('aria-label')?.replace(/^Open /,'')||'';boxCaption.textContent=`${boxImage.alt}  ·  ${String(current+1).padStart(2,'0')} / ${String(items.length).padStart(2,'0')}`};
+    items.forEach((button,index)=>button.addEventListener('click',()=>{show(index);box.showModal()}));
     document.querySelector('[data-lightbox-close]')?.addEventListener('click',()=>box.close());
+    document.querySelector('[data-lightbox-prev]')?.addEventListener('click',()=>show(current-1));
+    document.querySelector('[data-lightbox-next]')?.addEventListener('click',()=>show(current+1));
     box?.addEventListener('click',e=>{if(e.target===box)box.close()});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box?.open)box.close()});
+    document.addEventListener('keydown',e=>{if(!box?.open)return;if(e.key==='Escape')box.close();if(e.key==='ArrowLeft')show(current-1);if(e.key==='ArrowRight')show(current+1)});
   </script>
 </BaseLayout>
