@@ -1,9 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/blog';
 ---
 <BaseLayout title="Blog — Güven ÇALIŞKAN" description="Writing and notes by Güven ÇALIŞKAN.">
   <section class="page">
-    <div class="page-head"><p class="kicker">Notes & ideas</p><h1>Blog</h1><p class="lead">Writing about technology, creativity and the systems between them.</p></div>
-    <a class="card" style="display:block" href="/blog/ai-and-creativity/"><div class="card-symbol">20.02.2026</div><h2>AI and Creativity</h2><p>This is my first automatic TXT-based blog post. All content comes directly from a text file.</p></a>
+    <div class="page-head">
+      <p class="kicker">Notes & ideas</p>
+      <h1>Blog</h1>
+      <p class="lead">Writing about technology, creativity, engineering and the systems between them.</p>
+    </div>
+
+    <div class="blog-list">
+      {posts.map(post => (
+        <a class="blog-card" href={`/blog/${post.slug}/`}>
+          <div class="blog-card-meta"><span>{post.category}</span><time datetime={post.date}>{new Date(`${post.date}T12:00:00`).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</time></div>
+          <h2>{post.title}</h2>
+          <p>{post.excerpt}</p>
+          <span class="blog-read">Read article <span aria-hidden="true">↗</span></span>
+        </a>
+      ))}
+    </div>
   </section>
 </BaseLayout>
