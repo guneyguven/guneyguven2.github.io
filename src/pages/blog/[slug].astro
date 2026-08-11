@@ -20,7 +20,7 @@ const blocks = bodyToBlocks(post.body);
     </header>
     <div class="article-body">
       {blocks.map(block => {
-        if (block.type === 'h2' || block.type === 'h3') return <h2>{block.text}</h2>;
+        if (block.type === 'heading') return <h2>{block.text}</h2>;
         if (block.type === 'list') return <ul>{block.items.map(item => <li>{item}</li>)}</ul>;
         return <p>{block.text}</p>;
       })}
