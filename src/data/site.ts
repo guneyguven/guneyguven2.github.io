@@ -9,8 +9,8 @@ export const site = {
   }
 };
 
-const legacy = 'https://raw.githubusercontent.com/guneyguven/guneyguven.github.io/main/images/';
-export const image = (name: string) => `${legacy}${encodeURIComponent(name)}`;
+// Assets are physically migrated from the legacy portfolio into this repository.
+export const image = (name: string) => `/images/${encodeURIComponent(name)}`;
 
 export const gallery = [
   ['roboduck.jpg', 'Robo Duck'],
