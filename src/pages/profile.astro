@@ -1,16 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { profileCards } from '../data/site';
 ---
-<BaseLayout title="Profile — Güven ÇALIŞKAN" description="Professional profile of Güven ÇALIŞKAN — engineer, software specialist, project manager, digital artist and Kaizen practitioner.">
+<BaseLayout title="Profile — Güven ÇALIŞKAN" description="Professional profile of Güven ÇALIŞKAN — engineer, software specialist, project manager, digital artist and continuous-improvement practitioner.">
   <section class="page">
-    <div class="page-head"><p class="kicker">What I do</p><h1>Profile</h1><p class="lead">A deliberately mixed toolkit: engineering, software, project leadership, continuous improvement and visual art.</p></div>
+    <div class="page-head"><p class="kicker">Professional profile</p><h1>Engineering,<br>software & art.</h1><p class="lead">A deliberately mixed toolkit built around analytical thinking, project delivery, technology and visual communication.</p></div>
     <div class="profile-grid">
-      {profileCards.map(([title, text, symbol]) => <article class="card"><div class="card-symbol">{symbol}</div><h2>{title}</h2><p>{text}</p></article>)}
+      <article class="card"><div class="card-symbol">◈</div><h2>Engineering</h2><p>İstanbul Technical University civil engineering background, with a systems-oriented approach to technical problem solving.</p></article>
+      <article class="card"><div class="card-symbol">⌘</div><h2>Research & Software</h2><p>Research experience at ITU within the EU FP7 SERIES project, including algorithms, Python, Selenium, data collection and analysis.</p></article>
+      <article class="card"><div class="card-symbol">↗</div><h2>Project Management</h2><p>Digital project management across web, advertising and technology projects — coordinating people, scope, communication and delivery.</p></article>
+      <article class="card"><div class="card-symbol">↻</div><h2>Kaizen & Improvement</h2><p>Continuous-improvement practice focused on process design, measurable outcomes, waste reduction and practical implementation.</p></article>
+      <article class="card"><div class="card-symbol">✦</div><h2>Digital Art</h2><p>Multidisciplinary digital artist working across concept design, illustration, character development and visual experimentation.</p></article>
+      <article class="card"><div class="card-symbol">◌</div><h2>Technology</h2><p>JavaScript, React, Next.js, Python, Node.js, Selenium, MongoDB, Git, PyTorch, HTML and CSS.</p></article>
     </div>
     <section class="stack" aria-label="Technology stack">
       <div class="stack-label">Technology stack</div>
-      <div class="marquee" aria-hidden="true"><span>JavaScript</span><span>React</span><span>Next.js</span><span>Python</span><span>Node.js</span><span>MongoDB</span><span>Git</span><span>GitHub</span><span>PyTorch</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Next.js</span><span>Python</span><span>Node.js</span><span>MongoDB</span><span>Git</span><span>GitHub</span><span>PyTorch</span><span>HTML</span><span>CSS</span></div>
+      <div class="marquee" aria-hidden="true"><span>JavaScript</span><span>React</span><span>Next.js</span><span>Python</span><span>Node.js</span><span>Selenium</span><span>MongoDB</span><span>Git</span><span>GitHub</span><span>PyTorch</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Next.js</span><span>Python</span><span>Node.js</span><span>Selenium</span><span>MongoDB</span><span>Git</span><span>GitHub</span><span>PyTorch</span><span>HTML</span><span>CSS</span></div>
     </section>
   </section>
 </BaseLayout>
