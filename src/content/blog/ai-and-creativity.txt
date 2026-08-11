@@ -1,0 +1,12 @@
+TITLE: AI and Creativity
+DATE: 2026-02-20
+CATEGORY: Technology & Creativity
+EXCERPT: Notes on the relationship between artificial intelligence, creativity and the way we make things.
+---
+This is my first automatic TXT-based blog post.
+
+All content comes directly from a text file.
+
+## A simple publishing workflow
+
+Write a TXT document, put it in this folder, commit and push. The GitHub Pages build discovers the document, creates the blog card and generates its article page automatically.
