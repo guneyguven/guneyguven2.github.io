@@ -4,9 +4,9 @@ import '../styles/blog.css';
 import { site, image } from '../data/site';
 const { title = site.name, description = site.title } = Astro.props;
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const nav = [['/', 'Home'], ['/about/', 'About'], ['/profile/', 'Profile'], ['/gallery/', 'Gallery'], ['/blog/', 'Blog'], ['/contact/', 'Contact']];
-const href = (path: string) => `${base}${path === '/' ? '' : path.replace(/^\//, '')}`;
+const href = (path: string) => `${base}${path}`;
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
